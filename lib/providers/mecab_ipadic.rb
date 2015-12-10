@@ -1,10 +1,13 @@
 # Encoding: UTF-8
 
+require_relative '../which'
 require 'open3'
 
 class Ve
   class Provider
     class MecabIpadic < Ve::Provider
+
+      include Which
 
       BIT_STOP = 'VeEnd'
 
@@ -14,7 +17,7 @@ class Ve
                    :path => '',
                    :flags => ''}.merge(config)
 
-        @config[:app] = `which #{@config[:app]}`.chomp
+        @config[:app] = Which.which(@config[:app]).chomp
 
         start!
       end
@@ -275,7 +278,7 @@ class Ve
               pos = Ve::PartOfSpeech::Postposition
 
               if (previous.nil? || (!previous.nil? && previous[:pos2] != KAKARIJOSHI)) &&
-                 [TOKUSHU_TA, TOKUSHU_NAI, TOKUSHU_TAI, TOKUSHU_MASU, TOKUSHU_NU].include?(token[:inflection_type])
+                  [TOKUSHU_TA, TOKUSHU_NAI, TOKUSHU_TAI, TOKUSHU_MASU, TOKUSHU_NU].include?(token[:inflection_type])
                 attach_to_previous = true
               elsif token[:inflection_type] == FUHENKAGATA && token[:lemma] == NN
                 attach_to_previous = true
@@ -322,13 +325,13 @@ class Ve
             else
               pos = Ve::PartOfSpeech::TBD if pos.nil?
               word = Ve::Word.new(token[:literal], token[:lemma], pos, [token], {
-                :reading => token[:reading] || '',
-                :transcription => token[:hatsuon] || '',
-                :grammar => grammar
-              }, {
-                :reading_script => :kata,
-                :transcription_script => :kata
-              })
+                                                                                 :reading => token[:reading] || '',
+                                                                                 :transcription => token[:hatsuon] || '',
+                                                                                 :grammar => grammar
+                                                                                }, {
+                                                                                    :reading_script => :kata,
+                                                                                    :transcription_script => :kata
+                                                                                   })
 
               if eat_next
                 following = tokens.next

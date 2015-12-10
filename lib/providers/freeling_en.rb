@@ -3,11 +3,15 @@
 # TODO: Retain capitalization in lemmas?
 # TODO: Memoize
 
+require_relative '../which'
 require 'open3'
 
 class Ve
   class Provider
     class FreelingEn < Ve::Provider
+
+      include Which
+      
       # FIX: This class isn't tested
       BIT_STOP = 'VeEnd'
 
@@ -17,7 +21,7 @@ class Ve
                    :path => '',
                    :flags => ''}.merge(config)
 
-        @config[:app] = `which #{@config[:app]}`.strip!
+        @config[:app] = Which.which(@config[:app]).strip!
         local = @config[:app] =~ /local/ ? '/local' : ''
         share_dir = "/usr#{local}/share"
         @config[:freeling_dir_name] = Dir.exist?("#{share_dir}/FreeLing") ? 'FreeLing' : 'freeling'

@@ -1,5 +1,5 @@
 module Which
-  def which(cmd)
+  def self.which(cmd)
     exts = ENV['PATHEXT'] ? ENV['PATHEXT'].split(';') : ['']
     ENV['PATH'].split(File::PATH_SEPARATOR).each do |path|
       exts.each { |ext|

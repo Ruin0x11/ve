@@ -325,13 +325,13 @@ class Ve
             else
               pos = Ve::PartOfSpeech::TBD if pos.nil?
               word = Ve::Word.new(token[:literal], token[:lemma], pos, [token], {
-                                                                                 :reading => token[:reading] || '',
-                                                                                 :transcription => token[:hatsuon] || '',
-                                                                                 :grammar => grammar
-                                                                                }, {
-                                                                                    :reading_script => :kata,
-                                                                                    :transcription_script => :kata
-                                                                                   })
+                :reading => token[:reading] || '',
+                :transcription => token[:hatsuon] || '',
+                :grammar => grammar
+              }, {
+                :reading_script => :kata,
+                :transcription_script => :kata
+              })
 
               if eat_next
                 following = tokens.next

@@ -17,7 +17,7 @@ class Ve
                    :path => '',
                    :flags => ''}.merge(config)
 
-        @config[:app] = Which.which(@config[:app]).chomp
+        @config[:app] = "\"" + Which.which(@config[:app]).chomp + "\""
 
         start!
       end

@@ -6,7 +6,6 @@ require 'open3'
 class Ve
   class Provider
     class MecabIpadic < Ve::Provider
-
       include Which
 
       BIT_STOP = 'VeEnd'
@@ -17,7 +16,8 @@ class Ve
                    :path => '',
                    :flags => ''}.merge(config)
 
-        @config[:app] = Which.which(@config[:app]).chomp
+        # Windows requires path sanitization for paths with spaces
+        @config[:app] = "\"" + Which.which(@config[:app]).chomp + "\""
 
         start!
       end

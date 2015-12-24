@@ -9,7 +9,6 @@ require 'open3'
 class Ve
   class Provider
     class FreelingEn < Ve::Provider
-
       include Which
       
       # FIX: This class isn't tested

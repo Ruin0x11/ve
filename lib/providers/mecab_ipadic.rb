@@ -278,7 +278,7 @@ class Ve
               pos = Ve::PartOfSpeech::Postposition
 
               if (previous.nil? || (!previous.nil? && previous[:pos2] != KAKARIJOSHI)) &&
-                  [TOKUSHU_TA, TOKUSHU_NAI, TOKUSHU_TAI, TOKUSHU_MASU, TOKUSHU_NU].include?(token[:inflection_type])
+                 [TOKUSHU_TA, TOKUSHU_NAI, TOKUSHU_TAI, TOKUSHU_MASU, TOKUSHU_NU].include?(token[:inflection_type])
                 attach_to_previous = true
               elsif token[:inflection_type] == FUHENKAGATA && token[:lemma] == NN
                 attach_to_previous = true
